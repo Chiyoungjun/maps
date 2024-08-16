@@ -14,8 +14,9 @@ function Kakao() {
     <div
       id="map"
       style={{
-        width: '500px',
-        height: '500px',
+        width: '100%',
+        height: '100vh',
+          overflow: 'hidden',
       }}
     ></div>
   );
