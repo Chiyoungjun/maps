@@ -2,6 +2,7 @@
 @import "./AppKakaoMap.css";
 @import "AppChoicebutton.css";
 @import "AppSelectMenu.css";
+@import "AppHiddenMenu.css";
 
 body{
     margin: 0;

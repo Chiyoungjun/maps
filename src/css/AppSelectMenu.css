@@ -1,7 +1,7 @@
 #hiddenMenu {
     width: 20vw;
     height: 100%;
-    background-color: darkturquoise;
+    background-color: #d6d6d6;
     position: absolute;
     z-index: 2;
     top: 0;

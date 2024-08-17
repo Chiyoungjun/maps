@@ -1,7 +1,6 @@
 #appSide {
     width: 11vw;
     height: 45vh;
-    background-color: burlywood;
     position: absolute;
     z-index: 2;
      /* 100% - 30% (요소의 너비) = 70%, 70% / 2 = 35% */
@@ -57,9 +56,8 @@
 :is(#appSideClickIn, #appSideClickOut)  > div > button > img {
     width: 1vw;
     height: 3vh;
+    transition-duration: 1s;
 }
-
-
 
 #appSideChoice {
     width: 5vw;

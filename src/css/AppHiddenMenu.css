@@ -1,0 +1,25 @@
+.selectList > div > hr {height: .1vh}
+#hiddenMenu {
+    display: flex;
+    justify-content: center;
+}
+
+#hiddenTable {
+    width: 19vw;
+    height: 100%;
+    background-color: #dfa2a2;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.selectList {
+    width: 90%;
+    height: auto;
+    margin: 1vh 0 1vh 0;
+}
+.selectList > div {
+    width: 90%;
+    height: auto;
+}

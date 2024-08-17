@@ -52,13 +52,13 @@ function App() {
                 <article id={"appSideButton"}>
                     {/*슬라이드 인/아웃 버튼*/}
                     <div id={"appSideMoveIcon"}>
-                        <img src={require("./icon/vecter2.png")} alt=""/>
-                        <img src={require("./icon/vecter2.png")} alt=""/>
+                        <img src={sideMenuOpen ? require("./icon/vecterback2.png") : require('./icon/vecter2.png')} alt=""/>
+                        <img src={sideMenuOpen ? require("./icon/vecterback2.png") : require('./icon/vecter2.png')} alt=""/>
                     </div>
                     <div id={sideMenuOpen ? "appSideClickOut" : "appSideClickIn"} onClick={handleClick}>
                         <div>
                             <button>
-                                <img src={require("./icon/Vector.png")} alt=""/>
+                                <img src={sideMenuOpen ? require("./icon/Vectorback.png") : require("./icon/Vector.png")} alt=""/>
                             </button>
                         </div>
                     </div>
@@ -84,6 +84,35 @@ function App() {
                 </article>
             </div>
             <article id={"hiddenMenu"} className={sideMenuOpen ? "open" : "closed"}>
+                {/*해당부분을 컴포넌트로 하는 것이 좋아보임*/}
+                <div id={'hiddenTable'}>
+                    <div className={"selectList"}>
+                        <div>지역<br/><hr/></div>
+                        <div>지역 버튼</div>
+                    </div>
+                    <div className={"selectList"}>
+                        <div>상세 지역<br/><hr/></div>
+                        <div>상세 지역 버튼</div>
+                    </div>
+                    <div className={"selectList"}>
+                        <div>거래 방식<br/><hr/></div>
+                        <div>거래 방식 버튼</div>
+                    </div>
+                    <div className={"selectList"}>
+                        <div>건물 방식<br/><hr/></div>
+                        <div>건물 방식 버튼</div>
+                    </div>
+                    <div className={"selectList"}>
+                        <div>면적<br/><hr/></div>
+                        <div>면적 내용</div>
+                    </div>
+                    {/*<div>주변 직장</div>  추후에 할 예정*/}
+                    <div className={"selectList"}>
+                        <div>n개의 결과<br/><hr/></div>
+                        여기도 컨포넌트 or 큰 창이 띄울수 있는 버튼
+                        <div> 리스트</div>
+                    </div>
+                </div>
             </article>
         </section>
     </div>
