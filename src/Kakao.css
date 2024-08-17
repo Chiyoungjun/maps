@@ -1,0 +1,58 @@
+.kakao-map-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .map {
+    margin-bottom: 20px;
+  }
+  
+  .search-container {
+    margin-bottom: 20px;
+  }
+  
+  .search-input {
+    padding: 5px;
+    margin-right: 10px;
+  }
+  
+  .search-button {
+    padding: 5px 10px;
+  }
+  
+  .search-results {
+    margin-bottom: 20px;
+  }
+  
+  .results-list {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .result-item {
+    margin-bottom: 10px;
+  }
+  
+  .view-location-button {
+    margin-left: 10px;
+    padding: 5px;
+  }
+  
+  .zoom-level-display {
+    margin-bottom: 20px;
+  }
+  
+  .marker-selection {
+    display: flex;
+    gap: 10px;
+  }
+  
+  .marker-button {
+    padding: 5px 10px;
+  }
+  
+  .marker-button.active {
+    background-color: #007bff;
+    color: white;
+  }
