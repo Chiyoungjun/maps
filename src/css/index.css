@@ -1,8 +1,9 @@
 @import "./Apptest.css";
 @import "./AppKakaoMap.css";
 @import "AppChoicebutton.css";
+@import "AppSelectMenu.css";
 
-body {
+body{
     margin: 0;
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',

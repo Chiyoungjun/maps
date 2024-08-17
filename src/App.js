@@ -1,10 +1,17 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import { Route, Routes } from 'react-router-dom';
 import Kakao from './Kakaotest';
 import './css/index.css'
 import styled from "styled-components";
 
 function App() {
+
+    const [sideMenuOpen, setSideMenuOpen] = useState(false);
+
+    const handleClick = () => {
+        setSideMenuOpen(!sideMenuOpen);
+    }
+
   return (
     <div id={"App"}>
         <header id={"appHeader"}>
@@ -41,16 +48,18 @@ function App() {
                     <img src={require('./icon/location.png')} alt=""/>
                 </button>
             </article>
-            <div id={"appSide"}>
+            <div id={"appSide"} className={sideMenuOpen ? "open" : "closed"}>
                 <article id={"appSideButton"}>
                     {/*슬라이드 인/아웃 버튼*/}
                     <div id={"appSideMoveIcon"}>
                         <img src={require("./icon/vecter2.png")} alt=""/>
                         <img src={require("./icon/vecter2.png")} alt=""/>
                     </div>
-                    <div id={"appSideClick"}>
-                    <div>
-                            <img src={require("./icon/Vector.png")} alt=""/>
+                    <div id={sideMenuOpen ? "appSideClickOut" : "appSideClickIn"} onClick={handleClick}>
+                        <div>
+                            <button>
+                                <img src={require("./icon/Vector.png")} alt=""/>
+                            </button>
                         </div>
                     </div>
                 </article>
@@ -74,6 +83,8 @@ function App() {
                     </div>
                 </article>
             </div>
+            <article id={"hiddenMenu"} className={sideMenuOpen ? "open" : "closed"}>
+            </article>
         </section>
     </div>
   );
