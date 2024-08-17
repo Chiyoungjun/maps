@@ -1,6 +1,6 @@
 import React from 'react';
 import { Route, Routes } from 'react-router-dom';
-import Kakao from './Kakao';
+import Kakao from './Kakaotest';
 import './css/index.css'
 import styled from "styled-components";
 
@@ -41,6 +41,39 @@ function App() {
                     <img src={require('./icon/location.png')} alt=""/>
                 </button>
             </article>
+            <div id={"appSide"}>
+                <article id={"appSideButton"}>
+                    {/*슬라이드 인/아웃 버튼*/}
+                    <div id={"appSideMoveIcon"}>
+                        <img src={require("./icon/vecter2.png")} alt=""/>
+                        <img src={require("./icon/vecter2.png")} alt=""/>
+                    </div>
+                    <div id={"appSideClick"}>
+                    <div>
+                            <img src={require("./icon/Vector.png")} alt=""/>
+                        </div>
+                    </div>
+                </article>
+                <article id={"appSideChoice"}>
+                    {/*간편 메뉴 버튼*/}
+                    <div className={"appSCMenu"}>
+                        <img src={require("./icon/shopping.png")} alt=""/>
+                        <div>편의시절</div>
+                    </div>
+                    <div className={"appSCMenu"}>
+                        <img src={require("./icon/sefety.png")} alt=""/>
+                        <div>안전시설</div>
+                    </div>
+                    <div className={"appSCMenu"}>
+                        <img src={require("./icon/hospital.png")} alt=""/>
+                        <div>의료시설</div>
+                    </div>
+                    <div className={"appSCMenu"}>
+                        <img src={require("./icon/plus.png")} alt=""/>
+                        <div>기타시설</div>
+                    </div>
+                </article>
+            </div>
         </section>
     </div>
   );

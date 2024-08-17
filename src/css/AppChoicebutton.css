@@ -1,0 +1,91 @@
+#appSide {
+    width: 11vw;
+    height: 45vh;
+    background-color: burlywood;
+    position: absolute;
+    z-index: 2;
+    right: 0; /* 100% - 30% (요소의 너비) = 70%, 70% / 2 = 35% */
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+#appSideButton {
+    width: 6vw;
+    height: 100%;
+    display: flex;
+    justify-content: end;
+    align-items: center;
+}
+
+#appSideMoveIcon {
+    width: 2.5vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#appSideMoveIcon > img {
+    width: 1vw;
+    height: 2.5vh;
+}
+
+#appSideClick {
+    width: 2.5vw;
+    display: flex;
+    align-items: center;
+    justify-content: end;
+
+}
+#appSideClick > div {
+    width: 2vw;
+    height: 6vh;
+    background-color: white;
+    border-radius: 1vw 0 0 1vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+}
+#appSideClick > div > img {
+    width: 1vw;
+    height: 3vh;
+}
+
+
+
+#appSideChoice {
+    width: 5vw;
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    height: 100%;
+    background-color: #ff8383;
+    right: 0;
+    top: 0;
+}
+
+.appSCMenu {
+    width: 100%;
+    height: 25%;
+    font-weight: bold;
+    font-size: 1vw;
+    border-bottom: solid black .1vh;
+    border-top: solid black .1vh;
+    border-left: solid black .15vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.appSCMenu > img {
+    width: 2vw;
+    height: 5vh;
+    margin-top: 1vh;
+}
+.appSCMenu > div {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    height: 3vh;
+    margin-top: .5vh;
+}
