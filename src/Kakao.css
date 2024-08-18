@@ -1,58 +1,88 @@
+/* Kakao.css */
+
+/* 전체 레이아웃 스타일 */
 .kakao-map-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-  
-  .map {
-    margin-bottom: 20px;
-  }
-  
-  .search-container {
-    margin-bottom: 20px;
-  }
-  
-  .search-input {
-    padding: 5px;
-    margin-right: 10px;
-  }
-  
-  .search-button {
-    padding: 5px 10px;
-  }
-  
-  .search-results {
-    margin-bottom: 20px;
-  }
-  
-  .results-list {
-    list-style-type: none;
-    padding: 0;
-  }
-  
-  .result-item {
-    margin-bottom: 10px;
-  }
-  
-  .view-location-button {
-    margin-left: 10px;
-    padding: 5px;
-  }
-  
-  .zoom-level-display {
-    margin-bottom: 20px;
-  }
-  
-  .marker-selection {
-    display: flex;
-    gap: 10px;
-  }
-  
-  .marker-button {
-    padding: 5px 10px;
-  }
-  
-  .marker-button.active {
-    background-color: #007bff;
-    color: white;
-  }
+  display: flex;
+  position: relative;
+  height: 500px;
+}
+
+/* 지도 스타일 */
+.map {
+  flex: 1;
+  height: 100%;
+  width: 75%; /* 지도 영역의 너비 설정 */
+}
+
+/* 사이드바 스타일 */
+.sidebar {
+  width: 25%; /* 사이드바 너비 설정 */
+  height: 100%;
+  background-color: #f9f9f9;
+  border-left: 1px solid #ddd;
+  box-shadow: -2px 0 5px rgba(0, 0, 0, 0.1);
+  overflow-y: auto; /* 스크롤 가능하도록 설정 */
+  padding: 10px;
+  position: relative;
+}
+
+/* 검색 입력란 스타일 */
+.search-input {
+  width: calc(100% - 60px); /* 버튼 너비를 제외한 너비 */
+  padding: 8px;
+  margin-right: 10px;
+}
+
+.search-button {
+  padding: 8px;
+}
+
+/* 검색 결과 목록 스타일 */
+.search-results {
+  margin-top: 20px;
+}
+
+.results-list {
+  list-style: none;
+  padding: 0;
+}
+
+.result-item {
+  margin-bottom: 10px;
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
+}
+
+.view-location-button {
+  margin-left: 10px;
+}
+
+/* 확대/축소 레벨 표시 스타일 */
+.zoom-level-display {
+  margin-top: 20px;
+}
+
+/* 마커 선택 버튼 스타일 */
+.marker-selection {
+  margin-top: 20px;
+}
+
+.marker-button {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 5px;
+  border: 1px solid #ddd;
+  background-color: #f5f5f5;
+  cursor: pointer;
+  text-align: center;
+}
+
+.marker-button.active {
+  background-color: #ddd;
+}
+
+/* 현재 위치 버튼 스타일 */
+.current-location-button {
+  margin-top: 20px;
+}
