@@ -84,5 +84,8 @@
 
 /* 현재 위치 버튼 스타일 */
 .current-location-button {
-  margin-top: 20px;
+  position: absolute; /* 절대 위치 */
+  bottom: 20px;      /* 아래에서 20px */
+  right: 20px;       /* 오른쪽에서 20px */
+  z-index: 1000;     /* 다른 요소 위에 표시되도록 z-index 설정 */
 }
