@@ -28,10 +28,9 @@
 }
 
 #appSideMoveIcon > img {
-    width: 1vw;
-    height: 2.5vh;
+    width: .8vw;
+    height: 2vh;
 }
-
 
 #appSideClickIn,#appSideClickOut {
     width: 2.5vw;
@@ -53,6 +52,7 @@
     border: none;
     background-color: transparent;
 }
+:is(#appSideClickIn, #appSideClickOut)  > div > button:hover {cursor: pointer;}
 :is(#appSideClickIn, #appSideClickOut)  > div > button > img {
     width: 1vw;
     height: 3vh;

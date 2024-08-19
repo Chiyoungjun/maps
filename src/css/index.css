@@ -1,8 +1,8 @@
 @import "./Apptest.css";
 @import "./AppKakaoMap.css";
 @import "AppChoicebutton.css";
-@import "AppSelectMenu.css";
 @import "AppHiddenMenu.css";
+@import "AppHiddenMenuButton.css";
 
 body{
     margin: 0;

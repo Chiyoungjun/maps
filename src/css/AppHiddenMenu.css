@@ -1,13 +1,11 @@
 .selectList > div > hr {height: .1vh}
-#hiddenMenu {
-    display: flex;
-    justify-content: center;
-}
+.selectList > div {font-size: 1.2vw; font-weight: bolder;}
+#hiddenMenu {display: flex;justify-content: center;}
 
 #hiddenTable {
     width: 19vw;
     height: 100%;
-    background-color: #dfa2a2;
+    background-color: #ffd3d3;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -20,6 +18,20 @@
     margin: 1vh 0 1vh 0;
 }
 .selectList > div {
-    width: 90%;
+    width: 100%;
     height: auto;
 }
+
+#hiddenMenu {
+    width: 20vw;
+    height: 100%;
+    background-color: #eaeaea;
+    position: absolute;
+    z-index: 2;
+    top: 0;
+    transition: right .7s ease-in-out;
+}
+#hiddenMenu.open {right: 0;}
+#hiddenMenu.closed {right: -20vw;}
+
+#region {width: 100%;}

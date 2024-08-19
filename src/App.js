@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react';
 import { Route, Routes } from 'react-router-dom';
 import Kakao from './Kakaotest';
 import './css/index.css'
-import styled from "styled-components";
+import RegionSelector from "./config/RegionSelector";
 
 function App() {
 
@@ -11,6 +11,8 @@ function App() {
     const handleClick = () => {
         setSideMenuOpen(!sideMenuOpen);
     }
+
+
 
   return (
     <div id={"App"}>
@@ -86,14 +88,15 @@ function App() {
             <article id={"hiddenMenu"} className={sideMenuOpen ? "open" : "closed"}>
                 {/*해당부분을 컴포넌트로 하는 것이 좋아보임*/}
                 <div id={'hiddenTable'}>
-                    <div className={"selectList"}>
-                        <div>지역<br/><hr/></div>
-                        <div>지역 버튼</div>
-                    </div>
-                    <div className={"selectList"}>
-                        <div>상세 지역<br/><hr/></div>
-                        <div>상세 지역 버튼</div>
-                    </div>
+                    <RegionSelector />
+                    {/*<div className={"selectList"}>*/}
+                    {/*    <div>지역<br/><hr/></div>*/}
+                    {/*    <div>지역 버튼</div>*/}
+                    {/*</div>*/}
+                    {/*<div className={"selectList"}>*/}
+                    {/*    <div>상세 지역<br/><hr/></div>*/}
+                    {/*    <div>상세 지역 버튼</div>*/}
+                    {/*</div>*/}
                     <div className={"selectList"}>
                         <div>거래 방식<br/><hr/></div>
                         <div>거래 방식 버튼</div>
@@ -109,7 +112,7 @@ function App() {
                     {/*<div>주변 직장</div>  추후에 할 예정*/}
                     <div className={"selectList"}>
                         <div>n개의 결과<br/><hr/></div>
-                        여기도 컨포넌트 or 큰 창이 띄울수 있는 버튼
+                        {/*여기도 컨포넌트 or 큰 창이 띄울수 있는 버튼*/}
                         <div> 리스트</div>
                     </div>
                 </div>
