@@ -13,12 +13,13 @@ const KakaoMap = () => {
   const [zoomLevel, setZoomLevel] = useState(6); // 현재 지도 확대/축소 레벨 상태값 (기본값은 6)
   const [searchKeyword, setSearchKeyword] = useState(""); // 검색어를 저장하는 상태값
   const [searchResults, setSearchResults] = useState([]); // 검색 결과를 저장하는 상태값
+  const [sidebarVisible, setSidebarVisible] = useState(false); // 사이드바의 표시 여부를 저장하는 상태값
 
   // 컴포넌트가 처음 마운트될 때 실행
   useEffect(() => {
     const container = mapContainer.current; // 지도 컨테이너 요소를 참조
     const options = {
-      center: new window.kakao.maps.LatLng(37.499463762912974, 127.0288828824399 ), // 초기 지도 중심 좌표 설정
+      center: new window.kakao.maps.LatLng(37.499463762912974, 127.0288828824399), // 초기 지도 중심 좌표 설정
       level: zoomLevel // 초기 지도 확대/축소 레벨 설정
     };
 
@@ -88,51 +89,50 @@ const KakaoMap = () => {
   };
 
   // 세 가지 유형의 마커(편의시설, 안전시설, 의료시설)를 생성하는 함수
-const createMarkers = () => {
-  createConvenienceMarkers(); // 편의시설 마커 생성
-  createSafetyMarkers(); // 안전시설 마커 생성
-  createMedicalMarkers(); // 의료시설 마커 생성
-};
+  const createMarkers = () => {
+    createConvenienceMarkers(); // 편의시설 마커 생성
+    createSafetyMarkers(); // 안전시설 마커 생성
+    createMedicalMarkers(); // 의료시설 마커 생성
+  };
 
-// 편의시설 마커들을 생성하는 함수
-const createConvenienceMarkers = () => {
-  markerData.convenience.positions.forEach(({ lat, lng }) => {
-    const position = new window.kakao.maps.LatLng(lat, lng); // 마커 위치 설정
-    const imageSize = markerData.convenience.imageOptions.spriteSize; // 마커 이미지 크기 설정
-    const imageOptions = markerData.convenience.imageOptions; // 마커 이미지 옵션 설정
+  // 편의시설 마커들을 생성하는 함수
+  const createConvenienceMarkers = () => {
+    markerData.convenience.positions.forEach(({ lat, lng }) => {
+      const position = new window.kakao.maps.LatLng(lat, lng); // 마커 위치 설정
+      const imageSize = markerData.convenience.imageOptions.spriteSize; // 마커 이미지 크기 설정
+      const imageOptions = markerData.convenience.imageOptions; // 마커 이미지 옵션 설정
 
-    const markerImage = createMarkerImage(markerImageSrc, imageSize, imageOptions); // 마커 이미지 생성
-    const marker = createMarker(position, markerImage, '편의시설'); // 마커 생성
-    convenienceMarkers.current.push(marker); // 생성된 마커를 편의시설 마커 배열에 추가
-  });
-};
+      const markerImage = createMarkerImage(markerImageSrc, imageSize, imageOptions); // 마커 이미지 생성
+      const marker = createMarker(position, markerImage, '편의시설'); // 마커 생성
+      convenienceMarkers.current.push(marker); // 생성된 마커를 편의시설 마커 배열에 추가
+    });
+  };
 
-// 안전시설 마커들을 생성하는 함수
-const createSafetyMarkers = () => {
-  markerData.safety.positions.forEach(({ lat, lng }) => {
-    const position = new window.kakao.maps.LatLng(lat, lng); // 마커 위치 설정
-    const imageSize = markerData.safety.imageOptions.spriteSize; // 마커 이미지 크기 설정
-    const imageOptions = markerData.safety.imageOptions; // 마커 이미지 옵션 설정
+  // 안전시설 마커들을 생성하는 함수
+  const createSafetyMarkers = () => {
+    markerData.safety.positions.forEach(({ lat, lng }) => {
+      const position = new window.kakao.maps.LatLng(lat, lng); // 마커 위치 설정
+      const imageSize = markerData.safety.imageOptions.spriteSize; // 마커 이미지 크기 설정
+      const imageOptions = markerData.safety.imageOptions; // 마커 이미지 옵션 설정
 
-    const markerImage = createMarkerImage(markerImageSrc, imageSize, imageOptions); // 마커 이미지 생성
-    const marker = createMarker(position, markerImage, '안전시설'); // 마커 생성
-    safetyMarkers.current.push(marker); // 생성된 마커를 안전시설 마커 배열에 추가
-  });
-};
+      const markerImage = createMarkerImage(markerImageSrc, imageSize, imageOptions); // 마커 이미지 생성
+      const marker = createMarker(position, markerImage, '안전시설'); // 마커 생성
+      safetyMarkers.current.push(marker); // 생성된 마커를 안전시설 마커 배열에 추가
+    });
+  };
 
-// 의료시설 마커들을 생성하는 함수
-const createMedicalMarkers = () => {
-  markerData.medical.positions.forEach(({ lat, lng }) => {
-    const position = new window.kakao.maps.LatLng(lat, lng); // 마커 위치 설정
-    const imageSize = markerData.medical.imageOptions.spriteSize; // 마커 이미지 크기 설정
-    const imageOptions = markerData.medical.imageOptions; // 마커 이미지 옵션 설정
+  // 의료시설 마커들을 생성하는 함수
+  const createMedicalMarkers = () => {
+    markerData.medical.positions.forEach(({ lat, lng }) => {
+      const position = new window.kakao.maps.LatLng(lat, lng); // 마커 위치 설정
+      const imageSize = markerData.medical.imageOptions.spriteSize; // 마커 이미지 크기 설정
+      const imageOptions = markerData.medical.imageOptions; // 마커 이미지 옵션 설정
 
-    const markerImage = createMarkerImage(markerImageSrc, imageSize, imageOptions); // 마커 이미지 생성
-    const marker = createMarker(position, markerImage, '의료시설'); // 마커 생성
-    medicalMarkers.current.push(marker); // 생성된 마커를 의료시설 마커 배열에 추가
-  });
-};
-
+      const markerImage = createMarkerImage(markerImageSrc, imageSize, imageOptions); // 마커 이미지 생성
+      const marker = createMarker(position, markerImage, '의료시설'); // 마커 생성
+      medicalMarkers.current.push(marker); // 생성된 마커를 의료시설 마커 배열에 추가
+    });
+  };
 
   // 주어진 마커 배열의 모든 마커를 지도에 표시하는 함수
   const setMarkers = (markers) => {
@@ -166,6 +166,7 @@ const createMedicalMarkers = () => {
       setMarkers(medicalMarkers.current);
     }
     setActiveMarker(type); // 활성화된 마커 타입 상태값 업데이트
+    setSidebarVisible(true); // 사이드바 표시
   };
 
   // 좌표로부터 건물 이름을 얻어오는 함수
@@ -204,7 +205,7 @@ const createMedicalMarkers = () => {
 
     // 좌표를 통해 건물 이름을 가져와 인포윈도우에 표시
     getBuildingNameFromLatLng(latlng, (buildingName) => {
-      const infoWindowContent = `<div style="padding:5px;">건물명: ${buildingName}</div>`;
+      const infoWindowContent = `<div style="padding:5px;">${buildingName}</div>`;
       const infoWindow = new window.kakao.maps.InfoWindow({
         content: infoWindowContent,
         removable: true
@@ -222,10 +223,9 @@ const createMedicalMarkers = () => {
     });
   };
 
-  // 장소를 키워드로 검색하는 함수
   const searchPlaces = () => {
     const ps = new window.kakao.maps.services.Places(); // Kakao 장소 검색 객체 생성
-
+  
     // 키워드를 이용한 장소 검색
     ps.keywordSearch(searchKeyword, (data, status) => {
       if (status === window.kakao.maps.services.Status.OK) {
@@ -239,13 +239,14 @@ const createMedicalMarkers = () => {
           markers.push(marker); // 생성된 마커 배열에 추가
           marker.setMap(map.current); // 지도에 마커 표시
         });
+        setSidebarVisible(true); // 사이드바 표시
       } else {
         alert('검색 결과가 없습니다.'); // 검색 실패 시 알림
       }
     });
   };
 
-  //사용자의 현재 위치를 가져와 지도에 표시하는 함수
+  // 사용자의 현재 위치를 가져와 지도에 표시하는 함수
   const handleCurrentLocation = () => {
     if (navigator.geolocation) { // 브라우저가 Geolocation API를 지원하는지 확인
       navigator.geolocation.getCurrentPosition(
@@ -266,82 +267,111 @@ const createMedicalMarkers = () => {
     }
   };
 
+  // 사이드바 열기/닫기 함수
+  const toggleSidebar = () => {
+    setSidebarVisible(!sidebarVisible);
+  };
+
   return (
-    <div className="kakao-map-container">
-      <div id="map" className="map" ref={mapContainer}>
-        {/* 내 위치를 표시하는 버튼 */}
-        <div className="current-location-button">
-          <img 
-            src="https://cdn-icons-png.flaticon.com/512/5717/5717514.png"
-            alt="내 위치" 
-            onClick={handleCurrentLocation} 
-            className="location-icon"
-            style={{ width: '30px', height: '30px' }} // 원하는 크기로 설정
-          />
-        </div>
-      </div> {/* 지도 컨테이너 */}
-  
-      {/* 사이드바 */}
-      <div className="sidebar">
-        <div className="search-container">
-          <input 
-            type="text" 
-            value={searchKeyword} 
-            onChange={(e) => setSearchKeyword(e.target.value)} 
-            className="search-input"
-            placeholder="장소 검색" 
-          />
-          <button className="search-button" onClick={searchPlaces}>검색</button>
-        </div>
-  
-        <div className="search-results">
-          <h3>검색 결과</h3>
-          <ul className="results-list">
-            {searchResults.map((place, index) => (
-              <li key={index} className="result-item">
-                <span>{place.place_name}</span>
-                <button 
-                  className="view-location-button"
-                  onClick={() => {
-                    const position = new window.kakao.maps.LatLng(place.y, place.x);
-                    map.current.setCenter(position);
-                    addUserMarker(position);
-                  }}
-                >
-                  위치 보기
-                </button>
-              </li>
-            ))}
-          </ul>
-        </div>
-  
-        <div className="zoom-level-display">
-          현재 지도 레벨은 {zoomLevel} 입니다 {/* 현재 지도의 확대/축소 레벨 표시 */}
-        </div>
-  
-        <div className="marker-selection">
-          <button 
-            className={`marker-button ${activeMarker === 'convenience' ? 'active' : ''}`}
-            onClick={() => changeMarker('convenience')}
-          >
-            편의시설 {/* 편의시설 마커 버튼 */}
+    <div className="kakao-map-wrapper">
+      <div className="map-container" ref={mapContainer}>
+        {/* 지도 */}
+        <div id="map" className="map" ref={mapContainer}></div>
+
+        {/* 사이드바 */}
+        <div className={`sidebar ${sidebarVisible ? 'visible' : ''}`}>
+          <button className="sidebar-toggle-button" onClick={toggleSidebar}>
+            {sidebarVisible ? '닫기' : '열기'}
           </button>
-          <button 
-            className={`marker-button ${activeMarker === 'safety' ? 'active' : ''}`}
-            onClick={() => changeMarker('safety')}
-          >
-            안전시설 {/* 안전시설 마커 버튼 */}
-          </button>
-          <button 
-            className={`marker-button ${activeMarker === 'medical' ? 'active' : ''}`}
-            onClick={() => changeMarker('medical')}
-          >
-            의료시설 {/* 의료시설 마커 버튼 */}
-          </button>
+          <div className="search-results">
+            <h3>검색 결과</h3>
+            <ul className="results-list">
+              {searchResults.map((place, index) => (
+                <li key={index} className="result-item">
+                  <span><strong>장소명:</strong> {place.place_name}</span><br />
+                  <span><strong>주소:</strong> {place.address_name || '주소 정보 없음'}</span><br />
+                  <span><strong>카테고리:</strong> {place.category_name || '카테고리 정보 없음'}</span><br />
+                  <span><strong>전화번호:</strong> {place.phone || '전화번호 정보 없음'}</span>
+                  <button 
+                    className="view-location-button"
+                    onClick={() => {
+                      const position = new window.kakao.maps.LatLng(place.y, place.x);
+                      map.current.setCenter(position);
+                      addUserMarker(position);
+                    }}
+                  >
+                    위치 보기
+                  </button>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      {/* 네비게이션 바 */}
+      <div className="navbar">
+        <div className="navbar-content">
+          {/* 시설 선택 버튼들 */}
+          <div className="facility-buttons">
+            <button 
+              className={`facility-button ${activeMarker === 'convenience' ? 'active' : ''}`}
+              onClick={() => changeMarker('convenience')}
+            >
+              <img 
+                src="https://cdn-icons-png.flaticon.com/512/1004/1004909.png" // 편의시설 아이콘 URL
+                alt="편의시설" 
+                className="facility-icon"
+              />
+            </button>
+            <button 
+              className={`facility-button ${activeMarker === 'safety' ? 'active' : ''}`}
+              onClick={() => changeMarker('safety')}
+            >
+              <img 
+                src="https://cdn-icons-png.flaticon.com/512/1004/1004911.png" // 안전시설 아이콘 URL
+                alt="안전시설" 
+                className="facility-icon"
+              />
+            </button>
+            <button 
+              className={`facility-button ${activeMarker === 'medical' ? 'active' : ''}`}
+              onClick={() => changeMarker('medical')}
+            >
+              <img 
+                src="https://cdn-icons-png.flaticon.com/512/1004/1004910.png" // 의료시설 아이콘 URL
+                alt="의료시설" 
+                className="facility-icon"
+              />
+            </button>
+          </div>
+
+          {/* 검색 기능 */}
+          <div className="search-container">
+            <input 
+              type="text" 
+              value={searchKeyword} 
+              onChange={(e) => setSearchKeyword(e.target.value)} 
+              className="search-input"
+              placeholder="장소 검색" 
+            />
+            <button className="search-button" onClick={searchPlaces}>검색</button>
+          </div>
+          
+          {/* 내 위치 버튼 */}
+          <div className="current-location-button">
+            <img 
+              src="https://cdn-icons-png.flaticon.com/512/5717/5717514.png"
+              alt="내 위치" 
+              onClick={handleCurrentLocation} 
+              className="location-icon"
+              style={{ width: '30px', height: '30px' }} // 원하는 크기로 설정
+            />
+          </div>
         </div>
       </div>
     </div>
-  );  
+  );
 };
 
 export default KakaoMap;
