@@ -8,19 +8,24 @@ function RegionSelector() {
     const [selectedRegion, setSelectedRegion] = useState(null);
 
     const handleRegionClick = (region) => {
-        setSelectedRegion(region);
+        setSelectedRegion(prevRegion => prevRegion === region ? null : region);
     };
 
     return (
         <>
             <div className="selectList">
                 <div>지역<br/><hr/></div>
-                <RegionButtons regions={Object.keys(regions)} onRegionClick={handleRegionClick} />
+                <RegionButtons regions={Object.keys(regions)}
+                               onRegionClick={handleRegionClick}
+                               selectedRegion={selectedRegion}
+                />
             </div>
-            <div className="selectList">
-                <div>상세 지역<br/><hr/></div>
-                {selectedRegion && <AreaButtons areas={regions[selectedRegion]} />}
-            </div>
+            {selectedRegion && (
+                <div className="selectList">
+                    <div>상세 지역<br/><hr/></div>
+                    <AreaButtons areas={regions[selectedRegion]} />
+                </div>
+            )}
         </>
     );
 }

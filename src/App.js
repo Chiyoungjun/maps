@@ -3,6 +3,9 @@ import { Route, Routes } from 'react-router-dom';
 import Kakao from './Kakaotest';
 import './css/index.css'
 import RegionSelector from "./config/RegionSelector";
+import TransactionMethod from "./config/TransactionMethod";
+import {Building} from "./config/Building";
+import BuildingMethod from "./config/BuildingMethod";
 
 function App() {
 
@@ -89,22 +92,8 @@ function App() {
                 {/*해당부분을 컴포넌트로 하는 것이 좋아보임*/}
                 <div id={'hiddenTable'}>
                     <RegionSelector />
-                    {/*<div className={"selectList"}>*/}
-                    {/*    <div>지역<br/><hr/></div>*/}
-                    {/*    <div>지역 버튼</div>*/}
-                    {/*</div>*/}
-                    {/*<div className={"selectList"}>*/}
-                    {/*    <div>상세 지역<br/><hr/></div>*/}
-                    {/*    <div>상세 지역 버튼</div>*/}
-                    {/*</div>*/}
-                    <div className={"selectList"}>
-                        <div>거래 방식<br/><hr/></div>
-                        <div>거래 방식 버튼</div>
-                    </div>
-                    <div className={"selectList"}>
-                        <div>건물 방식<br/><hr/></div>
-                        <div>건물 방식 버튼</div>
-                    </div>
+                    <TransactionMethod/>
+                    <BuildingMethod/>
                     <div className={"selectList"}>
                         <div>면적<br/><hr/></div>
                         <div>면적 내용</div>

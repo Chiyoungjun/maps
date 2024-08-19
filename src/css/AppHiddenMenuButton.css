@@ -1,11 +1,13 @@
+:is(#AHMButtonRegion, #TAMethod, #BMethod).selected {background-color: #ffa6a6;}
 #AHMButtonRegion {
     width: 2.3vw;
-    height: 1.8vh;
+    height: 2vh;
     margin: 0 .2vw 0 .2vw;
     border: none;
     border-radius: .4vw;
     box-shadow: 0px 0px .3vw #444
 }
+#AHMButtonRegion.selected {background-color: #ffa6a6;}
 
 #AHMButtonArea {
     width: 3.5vw;
@@ -13,5 +15,21 @@
     margin: 0 .2vw 0 .2vw;
     border: none;
     border-radius: .4vw;
-    box-shadow: 0px 0px .25vw #444
+    box-shadow: 0px 0px .25vw #444;
 }
+#AHMButtonArea.selected {background-color: #ffa6a6;}
+
+#TAMethod,#BMethod {
+    width: 4vw;
+    height: 2vh;
+    margin: 0 .2vw 0 .2vw;
+    border: none;
+    border-radius: .4vw;
+    box-shadow: 0px 0px .3vw #444
+}
+
+:is(#TAMethod, #BMethod).Short {width: 2.5vw;}
+#BMethod {width: 3.3vw;}
+
+
+
