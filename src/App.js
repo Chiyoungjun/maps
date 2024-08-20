@@ -11,8 +11,6 @@ function App() {
         setSideMenuOpen(!sideMenuOpen);
     }
 
-
-
   return (
     <div id={"App"}>
         <header id={"appHeader"}>
