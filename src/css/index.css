@@ -3,6 +3,8 @@
 @import "AppChoicebutton.css";
 @import "AppHiddenMenu.css";
 @import "AppHiddenMenuButton.css";
+@import "AreaSet.css";
+@import "nouislider/dist/nouislider.css";
 
 body{
     margin: 0;

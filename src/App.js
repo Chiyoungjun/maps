@@ -6,6 +6,7 @@ import RegionSelector from "./config/RegionSelector";
 import TransactionMethod from "./config/TransactionMethod";
 import {Building} from "./config/Building";
 import BuildingMethod from "./config/BuildingMethod";
+import AreaSet from "./config/AreaSet";
 
 function App() {
 
@@ -46,10 +47,13 @@ function App() {
             <Route path="/" element={<Kakao />} />
             </Routes>
             <article>
-                <input id={"search"} type="text" placeholder={"지역, 지하철역, 회사명"}/>
+                <div id={"searchContainer"}>
+                    <input id={"search"} type="text" placeholder={"지역, 지하철역, 회사명"}/>
+                </div>
+
             </article>
             <article>
-                <button id={'location'}>
+            <button id={'location'}>
                     <img src={require('./icon/location.png')} alt=""/>
                 </button>
             </article>
@@ -94,10 +98,11 @@ function App() {
                     <RegionSelector />
                     <TransactionMethod/>
                     <BuildingMethod/>
-                    <div className={"selectList"}>
-                        <div>면적<br/><hr/></div>
-                        <div>면적 내용</div>
-                    </div>
+                    <AreaSet/>
+                    {/*<div className={"selectList"}>*/}
+                    {/*    <div>면적<br/><hr/></div>*/}
+                    {/*    <div>면적 내용</div>*/}
+                    {/*</div>*/}
                     {/*<div>주변 직장</div>  추후에 할 예정*/}
                     <div className={"selectList"}>
                         <div>n개의 결과<br/><hr/></div>

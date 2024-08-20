@@ -56,7 +56,6 @@
 :is(#appSideClickIn, #appSideClickOut)  > div > button > img {
     width: 1vw;
     height: 3vh;
-    transition-duration: 1s;
 }
 
 #appSideChoice {

@@ -1,0 +1,154 @@
+#WidthBox {
+    width: 100%;
+    height: 17vh;
+    margin: 1.5vh 0 0 0;
+    display: flex;
+    flex-direction: column;
+}
+
+#SubTitle {
+    width: 100%;
+    height: 6vh;
+    margin: 0 0 .5vh 0;
+}
+#SubTitle2 {
+    height: 2.5vh;
+    font-size: 1vw;
+    margin: 0 0 1vh 0;
+}
+#ShowArea {
+    height: 2vh;
+    font-size: .6vw;
+    color: #ff7b7b;
+}
+
+#WidthInput {
+    width: 100%;
+    height: 10vh;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#WidthInputSlide {
+    width: 60%;
+    height: 5vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+}
+#WidthInputSlide > div:first-child {
+    height: 1vh;
+}
+
+#WidthInputSlideIndex {
+    width: 105%;
+    margin-top: 2vh;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+#WidthInputSlideIndex > div{
+    width: 2vw;
+    font-size: .7vw;
+}
+#WidthInputSlideIndex > div:nth-child(2){
+    text-align: right;
+}
+
+#WidthInputText {
+    width: 30%;
+    height: 12vh;
+}
+#WidthInputText > div {height: 6vh}
+
+#minWidth, #maxWidth {
+    width: 5vw;
+    height: 1.8vh;
+    border: none;
+    background-color: white;
+    border-radius: .4vh;
+}
+.WidthText {height: 3vh}
+.WidthText > label {font-size: 0.8vw;}
+.WidthText > input {
+    font-size: .8vw;
+}
+.adjustable-bar {
+    background-color: #007bff;
+    height: 50px;
+    transition: width 0.3s ease-in-out;
+}
+
+
+
+
+/* 슬라이더 스타일링 */
+#widthSlider {
+    -webkit-appearance: none;
+    width: 100%;
+    height: 2px;
+    background: #d3d3d3;
+    outline: none;
+    opacity: 0.7;
+    transition: opacity .2s;
+}
+
+#widthSlider:hover {
+    opacity: 1;
+}
+
+/*#widthSlider::-webkit-slider-thumb {*/
+/*    -webkit-appearance: none;*/
+/*    appearance: none;*/
+/*    width: 2vw;*/
+/*    height: 4vh;*/
+/*    background: #4CAF50;*/
+/*    cursor: pointer;*/
+/*    border-radius: 0; !* 네모 모양으로 변경 *!*/
+/*}*/
+
+#widthSlider::-moz-range-thumb {
+    width: 15px;
+    height: 15px;
+    background: #4CAF50;
+    cursor: pointer;
+    border-radius: 0; /* 네모 모양으로 변경 */
+}
+
+.noUi-target {
+    background-color: #ffa6a6;
+    border: none;
+    box-shadow: none;
+}
+
+.noUi-connect {
+    background: #ff6767;
+}
+
+.noUi-handle {
+    border: 1px solid #4a4a4a;
+    background: #777777;
+    border-radius: 0;
+    box-shadow: none;
+    cursor: pointer;
+}
+
+.noUi-handle:before,
+.noUi-handle:after {
+    display: none;
+}
+
+.noUi-horizontal {
+    height: 5px;
+}
+
+.noUi-horizontal .noUi-handle {
+    width: 1vw;
+    height: 2vh;
+    right: -.5vw;
+    top: -.6vh;
+    border-radius: .3vh;
+    border: solid 1px #555555;
+}

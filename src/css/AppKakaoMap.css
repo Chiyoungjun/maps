@@ -5,14 +5,22 @@
     position: relative;
 }
 
-
-#search {
+#searchContainer {
     position: absolute;
     z-index: 2;
     top: 3vh;
     left: 2.5vw;
-    width: 15vw;
-    height: 5vh;
+}
+
+#search {
+    padding-left: calc(1vw + 1.5vw); /* 돋보기 아이콘 너비 + 2vw */
+    background-image: url('../icon/search.png');
+    background-repeat: no-repeat;
+    background-position: .6vw center; /* 좌측에서 10px, 수직 중앙 */
+    background-size: 2vh; /* 돋보기 아이콘 크기 */
+    width: 13vw;
+    height: 4vh;
+    font-size: .7vw;
     border: solid black 0.4px;
     border-radius: 50vw;
 }
@@ -22,8 +30,8 @@
     z-index: 1;
     bottom: 3vh;
     left: 2.5vw;
-    width: 60px;
-    height: 60px;
+    width: 3vw;
+    height: 5vh;
     background: white;
     border: none;
     border-radius: 50%;
@@ -32,6 +40,6 @@
     align-items: center;
 }
 #location>img {
-    width: 40px;
-    height: 40px;
+    width: 2.5vw;
+    height: 4vh;
 }
