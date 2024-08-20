@@ -1,6 +1,6 @@
 .selectList > div > hr {height: .1vh}
 .selectList > div {font-size: 1.2vw; font-weight: bolder;}
-#hiddenMenu {display: flex;justify-content: center;}
+#hiddenMenu {display: flex;justify-content: center;z-index: 3}
 
 #hiddenTable {
     width: 19vw;
@@ -27,7 +27,7 @@
     height: 100%;
     background-color: #eaeaea;
     position: absolute;
-    z-index: 2;
+    z-index: 4;
     top: 0;
     transition: right .7s ease-in-out;
 }

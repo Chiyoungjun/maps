@@ -2,7 +2,7 @@
     width: 11vw;
     height: 45vh;
     position: absolute;
-    z-index: 2;
+    z-index: 3;
      /* 100% - 30% (요소의 너비) = 70%, 70% / 2 = 35% */
     top: 50%;
     transform: translateY(-50%);
@@ -74,6 +74,7 @@
     height: 25%;
     font-weight: bold;
     font-size: 1vw;
+    cursor: pointer;
     border-bottom: solid black .1vh;
     border-top: solid black .1vh;
     border-left: solid black .15vh;

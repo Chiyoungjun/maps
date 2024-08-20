@@ -7,9 +7,11 @@
 
 #searchContainer {
     position: absolute;
-    z-index: 2;
+    z-index: 8;
     top: 3vh;
     left: 2.5vw;
+    width: 20vw;
+    height: 4vh;
 }
 
 #search {
@@ -27,10 +29,11 @@
 
 #location {
     position: absolute;
-    z-index: 1;
-    bottom: 3vh;
+    z-index: 7;
+    bottom: 130px;
+    /*bottom부분 위치 px로 고정 또는 위치 고정하는 법 봐야함*/
     left: 2.5vw;
-    width: 3vw;
+    width: 2.8vw;
     height: 5vh;
     background: white;
     border: none;
@@ -40,6 +43,6 @@
     align-items: center;
 }
 #location>img {
-    width: 2.5vw;
+    width: 2.3vw;
     height: 4vh;
 }

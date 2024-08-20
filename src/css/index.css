@@ -5,6 +5,7 @@
 @import "AppHiddenMenuButton.css";
 @import "AreaSet.css";
 @import "nouislider/dist/nouislider.css";
+@import "Kakao.css";
 
 body{
     margin: 0;
