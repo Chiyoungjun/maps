@@ -11,7 +11,7 @@ export const markerData = {
         ],
         imageOptions: {
             spriteOrigin: new window.kakao.maps.Point(10, 0),
-            spriteSize: new window.kakao.maps.Size(36, 98)
+            spriteSize: new window.kakao.maps.Size(22, 26)
         }
     },
     safety: {
@@ -26,7 +26,7 @@ export const markerData = {
         ],
         imageOptions: {
             spriteOrigin: new window.kakao.maps.Point(10, 36),
-            spriteSize: new window.kakao.maps.Size(36, 98)
+            spriteSize: new window.kakao.maps.Size(22, 26)
         }
     },
     medical: {
@@ -41,7 +41,7 @@ export const markerData = {
         ],
         imageOptions: {
             spriteOrigin: new window.kakao.maps.Point(10, 72),
-            spriteSize: new window.kakao.maps.Size(36, 98)
+            spriteSize: new window.kakao.maps.Size(22, 26)
         }
     },
     other: {
@@ -56,7 +56,7 @@ export const markerData = {
         ],
         imageOptions: {
             spriteOrigin: new window.kakao.maps.Point(10, 72),
-            spriteSize: new window.kakao.maps.Size(36, 98)
+            spriteSize: new window.kakao.maps.Size(22, 26)
         }
     }
 };
@@ -66,5 +66,5 @@ export const markerImageSrc = 'https://t1.daumcdn.net/localimg/localimages/07/20
 export const markerImageSrc1 = 'https://cdn-icons-png.flaticon.com/512/5717/5717514.png';
 export const markerImageSrc2 = 'https://t1.daumcdn.net/localimg/localimages/07/2018/pc/img/marker_spot.png';
 export const markerImageSrc3= 'https://t1.daumcdn.net/localimg/localimages/07/2018/pc/img/marker_spot.png'; // 새로운 카테고리 이미지 URL
-export const userMarkerImageSrc = 'https://t1.daumcdn.net/localimg/localimages/07/2018/pc/img/marker_spot.png'; // 새로운 사용자 마커 이미지 URL
+export const userMarkerImageSrc = 'https://cdn-icons-png.flaticon.com/512/5717/5717514.png'; // 새로운 사용자 마커 이미지 URL
 

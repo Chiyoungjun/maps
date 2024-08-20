@@ -104,7 +104,7 @@ const KakaoMap = () => {
       const imageSize = markerData.convenience.imageOptions.spriteSize; // 마커 이미지 크기 설정
       const imageOptions = markerData.convenience.imageOptions; // 마커 이미지 옵션 설정
 
-      const markerImage = createMarkerImage(markerImageSrc, imageSize, imageOptions); // 마커 이미지 생성
+      const markerImage = createMarkerImage(markerImageSrc, imageSize, {}); // 마커 이미지 생성
       const marker = createMarker(position, markerImage, '편의시설'); // 마커 생성
       convenienceMarkers.current.push(marker); // 생성된 마커를 편의시설 마커 배열에 추가
     });
@@ -117,7 +117,7 @@ const KakaoMap = () => {
       const imageSize = markerData.safety.imageOptions.spriteSize; // 마커 이미지 크기 설정
       const imageOptions = markerData.safety.imageOptions; // 마커 이미지 옵션 설정
 
-      const markerImage = createMarkerImage(markerImageSrc, imageSize, imageOptions); // 마커 이미지 생성
+      const markerImage = createMarkerImage(markerImageSrc, imageSize, {}); // 마커 이미지 생성
       const marker = createMarker(position, markerImage, '안전시설'); // 마커 생성
       safetyMarkers.current.push(marker); // 생성된 마커를 안전시설 마커 배열에 추가
     });
@@ -130,7 +130,7 @@ const KakaoMap = () => {
       const imageSize = markerData.medical.imageOptions.spriteSize; // 마커 이미지 크기 설정
       const imageOptions = markerData.medical.imageOptions; // 마커 이미지 옵션 설정
 
-      const markerImage = createMarkerImage(markerImageSrc, imageSize, imageOptions); // 마커 이미지 생성
+      const markerImage = createMarkerImage(markerImageSrc, imageSize, {}); // 마커 이미지 생성
       const marker = createMarker(position, markerImage, '의료시설'); // 마커 생성
       medicalMarkers.current.push(marker); // 생성된 마커를 의료시설 마커 배열에 추가
     });
@@ -143,7 +143,7 @@ const KakaoMap = () => {
       const imageSize = markerData.convenience.imageOptions.spriteSize; // 마커 이미지 크기 설정
       const imageOptions = markerData.convenience.imageOptions; // 마커 이미지 옵션 설정
 
-      const markerImage = createMarkerImage(markerImageSrc, imageSize, imageOptions); // 마커 이미지 생성
+      const markerImage = createMarkerImage(markerImageSrc, imageSize, {}); // 마커 이미지 생성5
       const marker = createMarker(position, markerImage, '기타시설'); // 마커 생성
       otherMarkers.current.push(marker); // 생성된 마커를 기타시설 마커 배열에 추가
     });
@@ -297,10 +297,10 @@ const KakaoMap = () => {
         <div id="map" className="map" ref={mapContainer}></div>
 
         {/* 사이드바 */}
-        <div className={`sidebar ${sidebarVisible ? 'visible' : ''}`}>
-          <button className="sidebar-toggle-button" onClick={toggleSidebar}>
+        <button className={`sidebar-toggle-button ${sidebarVisible}`} onClick={toggleSidebar}>
             {sidebarVisible ? '닫기' : '열기'}
           </button>
+        <div className={`sidebar ${sidebarVisible ? 'visible' : 'invisible'}`}>
           <div className="search-results">
             <h3>검색 결과</h3>
             <ul className="results-list">

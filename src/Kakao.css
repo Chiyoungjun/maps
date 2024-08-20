@@ -34,6 +34,7 @@
   transition: transform 0.3s ease; /* 사이드바의 위치 변경 시 애니메이션 효과 추가 */
   transform: translateX(100%); /* 사이드바를 오른쪽으로 숨김 */
   z-index: 2; /* 사이드바가 지도 위에 표시되도록 설정 */
+  padding-top: 10px;
 }
 
 /* 사이드바가 보일 때의 스타일 */
@@ -119,4 +120,23 @@
 
 .facility-button.active {
   opacity: 0.7;
+}
+
+.sidebar-toggle-button
+{
+  position: absolute;
+    right: 0;
+    top: 0;
+    transform: translateX(-300px);
+    z-index: 5;
+    transition: transform 0.3s ease; /* 사이드바의 위치 변경 시 애니메이션 효과 추가 */
+}
+
+.sidebar-toggle-button.true {
+  transform: translateX(-258px);
+}
+
+.sidebar-toggle-button.false
+{
+  transform: translateX(0px);
 }
