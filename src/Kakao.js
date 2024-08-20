@@ -8,6 +8,7 @@ const KakaoMap = () => {
   const convenienceMarkers = useRef([]); // 편의시설 마커들을 저장할 ref 배열
   const safetyMarkers = useRef([]); // 안전시설 마커들을 저장할 ref 배열
   const medicalMarkers = useRef([]); // 의료시설 마커들을 저장할 ref 배열
+  const otherMarkers = useRef([]); //기타시설 마커들을 저장할 ref 배열
   const userMarker = useRef(null); // 사용자 위치 마커를 저장할 ref
   const [activeMarker, setActiveMarker] = useState("convenience"); // 현재 활성화된 마커 타입을 저장하는 상태값 (기본값은 "편의시설")
   const [zoomLevel, setZoomLevel] = useState(6); // 현재 지도 확대/축소 레벨 상태값 (기본값은 6)
@@ -93,6 +94,7 @@ const KakaoMap = () => {
     createConvenienceMarkers(); // 편의시설 마커 생성
     createSafetyMarkers(); // 안전시설 마커 생성
     createMedicalMarkers(); // 의료시설 마커 생성
+    createOtherMarkers(); //기타시설 마커 생성
   };
 
   // 편의시설 마커들을 생성하는 함수
@@ -134,6 +136,19 @@ const KakaoMap = () => {
     });
   };
 
+  // 기타시설 마커들을 생성하는 함수
+  const createOtherMarkers = () => {
+    markerData.convenience.positions.forEach(({ lat, lng }) => {
+      const position = new window.kakao.maps.LatLng(lat, lng); // 마커 위치 설정
+      const imageSize = markerData.convenience.imageOptions.spriteSize; // 마커 이미지 크기 설정
+      const imageOptions = markerData.convenience.imageOptions; // 마커 이미지 옵션 설정
+
+      const markerImage = createMarkerImage(markerImageSrc, imageSize, imageOptions); // 마커 이미지 생성
+      const marker = createMarker(position, markerImage, '기타시설'); // 마커 생성
+      otherMarkers.current.push(marker); // 생성된 마커를 기타시설 마커 배열에 추가
+    });
+  };
+
   // 주어진 마커 배열의 모든 마커를 지도에 표시하는 함수
   const setMarkers = (markers) => {
     markers.forEach(marker => marker.setMap(map.current));
@@ -145,6 +160,7 @@ const KakaoMap = () => {
     convenienceMarkers.current.forEach(marker => marker.setMap(null));
     safetyMarkers.current.forEach(marker => marker.setMap(null));
     medicalMarkers.current.forEach(marker => marker.setMap(null));
+    otherMarkers.current.forEach(marker => marker.setMap(null));
     
     // 사용자 위치 마커가 있으면 지도에서 제거
     if (userMarker.current) {
@@ -156,14 +172,16 @@ const KakaoMap = () => {
   // 선택된 마커 타입에 따라 지도에 마커를 표시하고 상태값을 업데이트하는 함수
   const changeMarker = (type) => {
     clearAllMarkers(); // 모든 마커 제거
-
-    // 선택된 마커 타입에 따라 마커 표시
+  
+    // 선택된 마커 타입에 따라 해당 카테고리의 마커만 표시
     if (type === 'convenience') {
       setMarkers(convenienceMarkers.current);
     } else if (type === 'safety') {
       setMarkers(safetyMarkers.current);
     } else if (type === 'medical') {
       setMarkers(medicalMarkers.current);
+    } else if (type === 'other') {
+      setMarkers(otherMarkers.current);  // 기타시설 마커만 표시
     }
     setActiveMarker(type); // 활성화된 마커 타입 상태값 업데이트
     setSidebarVisible(true); // 사이드바 표시
@@ -341,6 +359,16 @@ const KakaoMap = () => {
               <img 
                 src="https://cdn-icons-png.flaticon.com/512/1004/1004910.png" // 의료시설 아이콘 URL
                 alt="의료시설" 
+                className="facility-icon"
+              />
+            </button>
+            <button 
+              className={`facility-button ${activeMarker === 'other' ? 'active' : ''}`}
+              onClick={() => changeMarker('other')}
+            >
+              <img 
+                src="https://cdn-icons-png.flaticon.com/512/1004/1004911.png" // 안전시설 아이콘 URL
+                alt="기타시설" 
                 className="facility-icon"
               />
             </button>

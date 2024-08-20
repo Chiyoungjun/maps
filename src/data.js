@@ -43,6 +43,21 @@ export const markerData = {
             spriteOrigin: new window.kakao.maps.Point(10, 72),
             spriteSize: new window.kakao.maps.Size(36, 98)
         }
+    },
+    other: {
+        positions: [
+            { lat: 37.4975, lng: 127.0350 },  // 기타시설 1
+            { lat: 37.4982, lng: 127.0291 },  // 기타시설 2
+            { lat: 37.4969, lng: 127.0270 },  // 기타시설 3
+            { lat: 37.4972, lng: 127.0325 },  // 기타시설 4
+            { lat: 37.4988, lng: 127.0310 },  // 기타시설 5
+            { lat: 37.4990, lng: 127.0265 },  // 기타시설 6
+            { lat: 37.4965, lng: 127.0288 },  // 기타시설 7
+        ],
+        imageOptions: {
+            spriteOrigin: new window.kakao.maps.Point(10, 72),
+            spriteSize: new window.kakao.maps.Size(36, 98)
+        }
     }
 };
 
