@@ -6,6 +6,7 @@
 @import "AreaSet.css";
 @import "nouislider/dist/nouislider.css";
 @import "Kakao.css";
+@import "./AppSearch.css";
 
 body{
     margin: 0;

@@ -1,0 +1,131 @@
+#searchbar {
+    position: absolute;
+    z-index: 4;
+    top: 3vh;
+    left: 2.5vw;
+    width: 17vw;
+    height: 50vh;
+}
+
+#searchContainer {
+    position: absolute;
+    z-index: 8;
+    width: 18vw;
+    height: 5vh;
+}
+#searchInputContainer {
+    display: flex;
+    position: relative;
+    width: 17vw;
+    height: 4vh;
+}
+
+#search {
+    padding-left: calc(2vw); /* 돋보기 아이콘 너비 + 2vw */
+    width: 16vw;
+    height: 5vh;
+    border: solid black 0.4px;
+    border-radius: 50vw;
+    font-size: 1.5vh;
+    /*background-image: url('../icon/search.png');*/
+    /*background-repeat: no-repeat;*/
+    /*background-position: .6vw center; !* 좌측에서 10px, 수직 중앙 *!*/
+    /*background-size: 2vh; !* 돋보기 아이콘 크기 *!*/
+}
+
+/* 검색 버튼 스타일 */
+.search-button {
+    position: absolute;
+    background-color: transparent;
+    border: none;
+    width: 1.6vw;
+    height: 3vh;
+    top: 1.2vh;
+    right: 1.5vw;
+    cursor: pointer;
+}
+
+#resultContainer{width: 30vw; height: 60vh}
+/* 사이드바 스타일 */
+.sidebar {
+    width: 100%; /* 사이드바의 고정 너비 */
+    height: 100%; /* 전체 화면 높이 */
+    background: white; /* 배경색을 흰색으로 설정 */
+    /*box-shadow: -2px 0 5px rgba(0,0,0,0.3); !* 왼쪽에 그림자 추가 *!*/
+    overflow-y: inherit; /* 내용이 넘칠 때 스크롤 가능하도록 설정 */
+    overflow-x: hidden; /* 좌우 화면 옮기는 것 안보이도록 함*/
+    z-index: 5; /* 사이드바가 지도 위에 표시되도록 설정 */
+    margin-top: 6vh;
+    border-radius: 1vh;
+    border: solid black 0.4px;
+    opacity: .8;
+    transition: transform 0.3s ease-in-out;
+    transform: translateX(-100%);
+}
+
+/* 사이드바가 보일 때의 스타일 */
+.sidebar.visible {transform: translateX(0); height: 100%;} /* 사이드바를 화면에 표시 */
+
+.search-results {
+    /*z-index: 6;*/
+    margin-top: 2vh;
+    width: 100%;
+    height: 7vh;
+    text-align: center;
+}
+
+.searchCloseButton {
+    width: 1.8vw;
+    height: 3vh;
+    position: relative;
+    top: .5vh;
+    right: -10vw;
+    cursor: pointer;
+    background-color: transparent;
+    border: none;
+}
+.searchCloseButton > img {
+    width: 1.8vw;
+    height: 3vh;
+}
+
+.search-results > h3 {height: 5vh;}
+.search-results > h3 > hr {
+    width: 90%;
+    height: 0;
+    margin: 1vh auto 0 auto;
+    border: solid black .2vh;
+    opacity: .4;
+}
+
+/* 검색 결과 리스트 스타일 */
+.results-list {
+    list-style: none; /* 기본 리스트 스타일 제거 */
+    padding: 0;
+    margin-top: 1vh;
+    z-index: 7/* 패딩 제거 */
+}
+.results-list > li {
+    width: 100%;
+    height: auto;
+    margin-top: 1.8vh;
+}
+
+/* 검색 결과 항목 스타일 */
+.result-item {
+    font-size: .95vw;
+    width: 100%;
+    height: auto;
+    border-bottom: 1px solid #ddd; /* 하단에 경계선 추가 */
+}
+.result-item > div {
+    margin-top: .7vh; /* 상단 여백 추가 */
+    height: 3vh;
+    margin-bottom: 2vh;
+
+}
+/* 위치 보기 버튼 스타일 */
+.view-location-button {
+    width: 6vw;
+    height: 3vh;
+}
