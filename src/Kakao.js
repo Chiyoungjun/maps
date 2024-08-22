@@ -14,6 +14,7 @@ const Kakao = () => {
     const medicalMarkers = useRef([]); // 의료시설 마커들을 저장할 ref 배열
     const otherMarkers = useRef([]); //기타시설 마커들을 저장할 ref 배열
     const userMarker = useRef(null); // 사용자 위치 마커를 저장할 ref
+    const searchMarkers = useRef([])
     const [activeMarker, setActiveMarker] = useState("convenience"); // 현재 활성화된 마커 타입을 저장하는 상태값 (기본값은 "편의시설")
     const [zoomLevel, setZoomLevel] = useState(6); // 현재 지도 확대/축소 레벨 상태값 (기본값은 6)
     const [searchKeyword, setSearchKeyword] = useState(""); // 검색어를 저장하는 상태값
@@ -166,6 +167,7 @@ const Kakao = () => {
         safetyMarkers.current.forEach(marker => marker.setMap(null));
         medicalMarkers.current.forEach(marker => marker.setMap(null));
         otherMarkers.current.forEach(marker => marker.setMap(null));
+        clearSearchMarkers();
 
         // 사용자 위치 마커가 있으면 지도에서 제거
         if (userMarker.current) {
@@ -242,42 +244,56 @@ const Kakao = () => {
 
             // 사용자 마커를 지도에 표시
             userMarker.current.setMap(map.current);
-            infoWindow.open(map.current, userMarker.current); // 인포윈도우 즉시 열기
+            // 화면에 x자로 보이던 부분 코드
+            // infoWindow.open(map.current, userMarker.current); // 인포윈도우 즉시 열기
         });
     };
 
     // 검색창 관련 기능
-
     const searchPlaces = () => {
-        const ps = new window.kakao.maps.services.Places(); // Kakao 장소 검색 객체 생성
-        // 키워드를 이용한 장소 검색
+        const ps = new window.kakao.maps.services.Places();
         ps.keywordSearch(searchKeyword, (data, status) => {
             if (status === window.kakao.maps.services.Status.OK) {
                 clearAllMarkers(); // 기존 마커 제거
+                clearSearchMarkers(); // 이전 검색 결과 마커 제거
                 const markers = [];
-                setSearchResults(data); // 검색 결과 상태 업데이트
+                setSearchResults(data);
                 setSearchResultsVisible(true);
-                data.forEach(place => {
-                    const position = new window.kakao.maps.LatLng(place.y, place.x); // 검색된 장소의 위치 설정
-                    const markerImage = createMarkerImage(markerImageSrc, new window.kakao.maps.Size(22, 26), {}); // 마커 이미지 생성
-                    const marker = createMarker(position, markerImage, place.place_name); // 마커 생성
-                    markers.push(marker); // 생성된 마커 배열에 추가
-                    marker.setMap(map.current); // 지도에 마커 표시
-                });
-                // setSidebarVisible(true); // 사이드바 표시
 
+                data.forEach((place, index) => {
+                    const position = new window.kakao.maps.LatLng(place.y, place.x);
+                    const markerImage = createMarkerImage(markerImageSrc, new window.kakao.maps.Size(22, 26), {});
+                    const marker = createMarker(position, markerImage, place.place_name);
+                    markers.push(marker);
+                    marker.setMap(map.current);
+
+                    // 첫 번째 검색 결과로 지도 중심 이동
+                    if (index === 0) {
+                        map.current.setCenter(position);
+                        map.current.setLevel(3); // 확대 레벨 설정 (필요에 따라 조정)
+                    }
+                });
+
+                searchMarkers.current = markers; // 새로운 검색 결과 마커 저장
             } else {
-                alert('검색 결과가 없습니다.'); // 검색 실패 시 알림
+                alert('검색 결과가 없습니다.');
             }
         });
     };
+
     const closeSidebar = () => {
         setSidebarVisible(false);
         setSearchResultsVisible(false);
         setSearchResults([]);
         setSearchKeyword('');
+        clearSearchMarkers();
         // 검색 결과 마커 제거
         map.current.removeOverlayMapTypeId(window.kakao.maps.MapTypeId.TRAFFIC);
+    };
+
+    const clearSearchMarkers = () => {
+        searchMarkers.current.forEach(marker => marker.setMap(null));
+        searchMarkers.current = [];
     };
 
     // 사용자의 현재 위치를 가져와 지도에 표시하는 함수
@@ -370,11 +386,11 @@ const Kakao = () => {
                                         </ul>
                                     </div>
                                 </div>
-                                )}
-                                </div>
-                                </article>
-                                <article>
-                                <div id={"location"}>
+                            )}
+                        </div>
+                    </article>
+                    <article>
+                        <div id={"location"}>
                             <img
                                 src={require('./icon/location.png')}
                                 alt="내 위치"

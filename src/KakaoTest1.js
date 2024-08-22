@@ -14,11 +14,13 @@ const Kakao = () => {
     const medicalMarkers = useRef([]); // 의료시설 마커들을 저장할 ref 배열
     const otherMarkers = useRef([]); //기타시설 마커들을 저장할 ref 배열
     const userMarker = useRef(null); // 사용자 위치 마커를 저장할 ref
+    const searchMarkers = useRef([])
     const [activeMarker, setActiveMarker] = useState("convenience"); // 현재 활성화된 마커 타입을 저장하는 상태값 (기본값은 "편의시설")
     const [zoomLevel, setZoomLevel] = useState(6); // 현재 지도 확대/축소 레벨 상태값 (기본값은 6)
     const [searchKeyword, setSearchKeyword] = useState(""); // 검색어를 저장하는 상태값
     const [searchResults, setSearchResults] = useState([]); // 검색 결과를 저장하는 상태값
     const [sidebarVisible, setSidebarVisible] = useState(false); // 사이드바의 표시 여부를 저장하는 상태값
+    const [searchResultsVisible, setSearchResultsVisible] = useState(false);
 
     // 컴포넌트가 처음 마운트될 때 실행
     useEffect(() => {
@@ -165,6 +167,7 @@ const Kakao = () => {
         safetyMarkers.current.forEach(marker => marker.setMap(null));
         medicalMarkers.current.forEach(marker => marker.setMap(null));
         otherMarkers.current.forEach(marker => marker.setMap(null));
+        clearSearchMarkers();
 
         // 사용자 위치 마커가 있으면 지도에서 제거
         if (userMarker.current) {
@@ -241,31 +244,72 @@ const Kakao = () => {
 
             // 사용자 마커를 지도에 표시
             userMarker.current.setMap(map.current);
-            infoWindow.open(map.current, userMarker.current); // 인포윈도우 즉시 열기
+            // infoWindow.open(map.current, userMarker.current); // 인포윈도우 즉시 열기
         });
     };
 
-    const searchPlaces = () => {
-        const ps = new window.kakao.maps.services.Places(); // Kakao 장소 검색 객체 생성
+    // 검색창 관련 기능
 
-        // 키워드를 이용한 장소 검색
+    // const searchPlaces = () => {
+    //     const ps = new window.kakao.maps.services.Places(); // Kakao 장소 검색 객체 생성
+    //     // 키워드를 이용한 장소 검색
+    //     ps.keywordSearch(searchKeyword, (data, status) => {
+    //         if (status === window.kakao.maps.services.Status.OK) {
+    //             clearAllMarkers(); // 기존 마커 제거
+    //             clearSearchMarkders(); // 이전 검색 결과 마커 제거
+    //             const markers = [];
+    //             setSearchResults(data); // 검색 결과 상태 업데이트
+    //             setSearchResultsVisible(true);
+    //             data.forEach(place => {
+    //                 const position = new window.kakao.maps.LatLng(place.y, place.x); // 검색된 장소의 위치 설정
+    //                 const markerImage = createMarkerImage(markerImageSrc, new window.kakao.maps.Size(22, 26), {}); // 마커 이미지 생성
+    //                 const marker = createMarker(position, markerImage, place.place_name); // 마커 생성
+    //                 markers.push(marker); // 생성된 마커 배열에 추가
+    //                 marker.setMap(map.current); // 지도에 마커 표시
+    //             });
+    //             // setSidebarVisible(true); // 사이드바 표시
+    //
+    //         } else {
+    //             alert('검색 결과가 없습니다.'); // 검색 실패 시 알림
+    //         }
+    //     });
+    // };
+    const searchPlaces = () => {
+        const ps = new window.kakao.maps.services.Places();
         ps.keywordSearch(searchKeyword, (data, status) => {
             if (status === window.kakao.maps.services.Status.OK) {
                 clearAllMarkers(); // 기존 마커 제거
+                clearSearchMarkers(); // 이전 검색 결과 마커 제거
                 const markers = [];
-                setSearchResults(data); // 검색 결과 상태 업데이트
+                setSearchResults(data);
+                setSearchResultsVisible(true);
                 data.forEach(place => {
-                    const position = new window.kakao.maps.LatLng(place.y, place.x); // 검색된 장소의 위치 설정
-                    const markerImage = createMarkerImage(markerImageSrc, new window.kakao.maps.Size(22, 26), {}); // 마커 이미지 생성
-                    const marker = createMarker(position, markerImage, place.place_name); // 마커 생성
-                    markers.push(marker); // 생성된 마커 배열에 추가
-                    marker.setMap(map.current); // 지도에 마커 표시
+                    const position = new window.kakao.maps.LatLng(place.y, place.x);
+                    const markerImage = createMarkerImage(markerImageSrc, new window.kakao.maps.Size(22, 26), {});
+                    const marker = createMarker(position, markerImage, place.place_name);
+                    markers.push(marker);
+                    marker.setMap(map.current);
                 });
-                setSidebarVisible(true); // 사이드바 표시
+                searchMarkers.current = markers; // 새로운 검색 결과 마커 저장
             } else {
-                alert('검색 결과가 없습니다.'); // 검색 실패 시 알림
+                alert('검색 결과가 없습니다.');
             }
         });
+    };
+
+    const closeSidebar = () => {
+        setSidebarVisible(false);
+        setSearchResultsVisible(false);
+        setSearchResults([]);
+        setSearchKeyword('');
+        clearSearchMarkers();
+        // 검색 결과 마커 제거
+        map.current.removeOverlayMapTypeId(window.kakao.maps.MapTypeId.TRAFFIC);
+    };
+
+    const clearSearchMarkers = () => {
+        searchMarkers.current.forEach(marker => marker.setMap(null));
+        searchMarkers.current = [];
     };
 
     // 사용자의 현재 위치를 가져와 지도에 표시하는 함수
@@ -305,17 +349,60 @@ const Kakao = () => {
             <div className="map-container" ref={mapContainer}>
                 {/* 지도 */}
                 <div id="map" className="map" ref={mapContainer}>
-                    <article>
+                    <article id={"searchbar"}>
                         <div id={"searchContainer"}>
-                            <input
-                                id={"search"}
-                                type="text"
-                                value={searchKeyword}
-                                onChange={(e) => setSearchKeyword(e.target.value)}
-                                placeholder={"지역, 지하철역, 회사명"}
-                            />
-                            <button className="search-button" onClick={searchPlaces}>검색</button>
-                            {/*<button onClick={searchPlaces}>검색</button>*/}
+                            <div id={"searchInputContainer"}>
+                                <input
+                                    id={"search"}
+                                    type="text"
+                                    value={searchKeyword}
+                                    onChange={(event) => setSearchKeyword(event.target.value)}
+                                    placeholder={"지역, 지하철역, 회사명"}
+                                />
+                                <button className="search-button" onClick={() => {
+                                    setSearchResultsVisible(true);
+                                    searchPlaces();
+                                }}>
+                                    <img src={require('./icon/search.png')} alt=""/>
+                                </button>
+                            </div>
+                        </div>
+                        <div id={"resultContainer"}>
+                            {searchResultsVisible && (
+                                <div className="sidebar visible">
+                                    <div className="search-results">
+                                        <h3>검색 결과
+                                            <button className={"searchCloseButton"} onClick={closeSidebar}>
+                                                <img src={require("./icon/Close.png")} alt=""/>
+                                            </button>
+                                            <br/>
+                                            <hr/>
+                                        </h3>
+                                        <ul className="results-list">
+                                            {searchResults.map((place, index) => (
+                                                <li key={index} className="result-item">
+                                                    <span><strong>장소명:</strong> {place.place_name}</span><br/>
+                                                    <span><strong>주소:</strong> {place.address_name || '주소 정보 없음'}</span><br/>
+                                                    <span><strong>카테고리:</strong> {place.category_name || '카테고리 정보 없음'}</span><br/>
+                                                    <span><strong>전화번호:</strong> {place.phone || '전화번호 정보 없음'}</span>
+                                                    <div>
+                                                        <button
+                                                            className="view-location-button"
+                                                            onClick={() => {
+                                                                const position = new window.kakao.maps.LatLng(place.y, place.x);
+                                                                map.current.setCenter(position);
+                                                                addUserMarker(position);
+                                                            }}
+                                                        >
+                                                            위치 보기
+                                                        </button>
+                                                    </div>
+                                                </li>
+                                            ))}
+                                        </ul>
+                                    </div>
+                                </div>
+                            )}
                         </div>
                     </article>
                     <article>
@@ -390,7 +477,6 @@ const Kakao = () => {
                             <TransactionMethod/>
                             <BuildingMethod/>
                             <AreaSet/>
-                            {/*<div>주변 직장</div>  추후에 할 예정*/}
                             <div className={"selectList"}>
                                 <div>n개의 결과<br/>
                                     <hr/>
@@ -401,100 +487,7 @@ const Kakao = () => {
                         </div>
                     </article>
                 </div>
-                {/*검색기능*/}
-
-
-                {/* 사이드바 */}
-                {/*<button className={`sidebar-toggle-button ${sidebarVisible}`} onClick={toggleSidebar}>*/}
-                {/*    {sidebarVisible ? '닫기' : '열기'}*/}
-                {/*</button>*/}
-                {/*<div className={`sidebar ${sidebarVisible ? 'visible' : 'invisible'}`}>*/}
-                {/*    <div className="search-results">*/}
-                {/*        <h3>검색 결과</h3>*/}
-                {/*        <ul className="results-list">*/}
-                {/*            {searchResults.map((place, index) => (*/}
-                {/*                <li key={index} className="result-item">*/}
-                {/*                    <span><strong>장소명:</strong> {place.place_name}</span><br />*/}
-                {/*                    <span><strong>주소:</strong> {place.address_name || '주소 정보 없음'}</span><br />*/}
-                {/*                    <span><strong>카테고리:</strong> {place.category_name || '카테고리 정보 없음'}</span><br />*/}
-                {/*                    <span><strong>전화번호:</strong> {place.phone || '전화번호 정보 없음'}</span>*/}
-                {/*                    <button*/}
-                {/*                        className="view-location-button"*/}
-                {/*                        onClick={() => {*/}
-                {/*                            const position = new window.kakao.maps.LatLng(place.y, place.x);*/}
-                {/*                            map.current.setCenter(position);*/}
-                {/*                            addUserMarker(position);*/}
-                {/*                        }}*/}
-                {/*                    >*/}
-                {/*                        위치 보기*/}
-                {/*                    </button>*/}
-                {/*                </li>*/}
-                {/*            ))}*/}
-                {/*        </ul>*/}
-                {/*    </div>*/}
-                {/*</div>*/}
             </div>
-
-            {/* 네비게이션 바 */}
-            {/*<div>*/}
-            {/*<div className="navbar-content">*/}
-            {/*시설 선택 버튼들*/}
-            {/*<div id={"appSideChoice"}>*/}
-            {/*    <button*/}
-            {/*        className={`appSCMenu ${activeMarker === 'convenience' ? 'active' : ''}`}*/}
-            {/*        onClick={() => changeMarker('convenience')}*/}
-            {/*    >*/}
-            {/*        <img src={require("./icon/shopping.png")}/>*/}
-            {/*        <div>편의시절</div>*/}
-            {/*    </button>*/}
-            {/*    <button*/}
-            {/*        className={`appSCMenu ${activeMarker === 'safety' ? 'active' : ''}`}*/}
-            {/*        onClick={() => changeMarker('safety')}*/}
-            {/*    >*/}
-            {/*        <img src={require("./icon/shopping.png")}/>*/}
-            {/*        <div>안전시설</div>*/}
-            {/*    </button>*/}
-            {/*    <button*/}
-            {/*        className={`appSCMenu ${activeMarker === 'medical' ? 'active' : ''}`}*/}
-            {/*        onClick={() => changeMarker('medical')}*/}
-            {/*    >*/}
-            {/*        <img src={require("./icon/shopping.png")}/>*/}
-            {/*        <div>편의시절</div>*/}
-            {/*    </button>*/}
-            {/*    <button*/}
-            {/*        className={`appSCMenu ${activeMarker === 'other' ? 'active' : ''}`}*/}
-            {/*        onClick={() => changeMarker('other')}*/}
-            {/*    >*/}
-            {/*        <img src={require("./icon/shopping.png")}/>*/}
-            {/*        <div>편의시절</div>*/}
-            {/*    </button>*/}
-            {/*</div>*/}
-
-
-            {/* 검색 기능 */}
-            {/*<div className="search-container">*/}
-            {/*    <input*/}
-            {/*        type="text"*/}
-            {/*        value={searchKeyword}*/}
-            {/*        onChange={(e) => setSearchKeyword(e.target.value)}*/}
-            {/*        className="search-input"*/}
-            {/*        placeholder="장소 검색"*/}
-            {/*    />*/}
-            {/*    <button className="search-button" onClick={searchPlaces}>검색</button>*/}
-            {/*</div>*/}
-
-            {/* 내 위치 버튼 */}
-            {/*<div id={"location"}>*/}
-            {/*    <img*/}
-            {/*        src={require('./icon/location.png')}*/}
-            {/*        alt="내 위치"*/}
-            {/*        onClick={handleCurrentLocation}*/}
-            {/*        className="location-icon"*/}
-            {/*        style={{width: '30px', height: '30px'}} // 원하는 크기로 설정*/}
-            {/*    />*/}
-            {/*</div>*/}
-            {/*</div>*/}
-            {/*</div>*/}
         </div>
     );
 };

@@ -1,4 +1,8 @@
 // data.js
+import marker from './icon/marker.png';
+import userMarker from './icon/userMarker.png';
+// import * as url from "node:url";
+
 export const markerData = {
     convenience: {
       positions: [
@@ -31,7 +35,8 @@ export const markerData = {
       }
     }
   };
-  
-  export const markerImageSrc = 'https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/category.png';
-  export const userMarkerImageSrc = 'https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/marker.png';
+
+
+export const markerImageSrc = marker;
+export const userMarkerImageSrc = userMarker;
   
