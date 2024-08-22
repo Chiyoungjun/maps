@@ -1,7 +1,11 @@
 import React, { useEffect, useRef, useState } from "react";
-import { markerData, markerImageSrc, userMarkerImageSrc } from './data';
-import './css/index.css';
-import { SearchBar, SearchResults, LocationButton, SideMenu, HiddenMenu} from "./conponent/index";
+import { markerData, markerImageSrc, userMarkerImageSrc } from '../data';
+import '../css/index.css';
+import SearchBar from "./components/SearchBar";
+import SearchResults from "./components/SearchResults";
+import LocationButton from "./components/LocationButton";
+import SideMenu from "./components/SideMenu";
+import HiddenMenu from "./components/HiddenMenu";
 
 const KakaoMap = () => {
     const mapContainer = useRef(null);
