@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import { Route, Routes } from 'react-router-dom';
-import Kakao from './Kakao';
+import Kakao from './KakaoTest1';
 import './css/index.css'
 
 function App() {

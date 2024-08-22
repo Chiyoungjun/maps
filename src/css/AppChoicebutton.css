@@ -1,8 +1,9 @@
+/*#appSide {z-index: 3;}*/
+
 #appSide {
     width: 11vw;
     height: 45vh;
     position: absolute;
-    z-index: 3;
      /* 100% - 30% (요소의 너비) = 70%, 70% / 2 = 35% */
     top: 50%;
     transform: translateY(-50%);

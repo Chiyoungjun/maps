@@ -27,7 +27,8 @@ const Kakao = () => {
         const container = mapContainer.current; // 지도 컨테이너 요소를 참조
         const options = {
             center: new window.kakao.maps.LatLng(37.499463762912974, 127.0288828824399), // 초기 지도 중심 좌표 설정
-            level: zoomLevel // 초기 지도 확대/축소 레벨 설정
+            level: zoomLevel, // 초기 지도 확대/축소 레벨 설정
+            draggable: true
         };
 
         // Kakao 지도 객체를 생성하여 map.current에 저장
@@ -58,6 +59,8 @@ const Kakao = () => {
             setZoomLevel(level);
         });
 
+        // map.current.setDraggable(true);
+
         // 컴포넌트가 언마운트될 때 이벤트 리스너 제거
         return () => {
             window.kakao.maps.event.removeListener(map.current, 'zoom_changed');
@@ -73,7 +76,8 @@ const Kakao = () => {
     const createMarker = (position, image, title) => {
         const marker = new window.kakao.maps.Marker({
             position: position, // 마커의 위치
-            image: image // 마커 이미지
+            image: image, // 마커 이미지
+            // clickable: true
         });
 
         // 마커에 표시될 인포윈도우 생성
@@ -94,6 +98,7 @@ const Kakao = () => {
 
         return marker;
     };
+
 
     // 세 가지 유형의 마커(편의시설, 안전시설, 의료시설)를 생성하는 함수
     const createMarkers = () => {
@@ -268,13 +273,20 @@ const Kakao = () => {
                     marker.setMap(map.current);
 
                     // 첫 번째 검색 결과로 지도 중심 이동
-                    if (index === 0) {
-                        map.current.setCenter(position);
-                        map.current.setLevel(3); // 확대 레벨 설정 (필요에 따라 조정)
-                    }
+                    // if (index === 0) {
+                    //     map.current.setCenter(position);
+                    //     map.current.setLevel(3); // 확대 레벨 설정 (필요에 따라 조정)
+                    // }
                 });
 
                 searchMarkers.current = markers; // 새로운 검색 결과 마커 저장
+
+                if (markers.length > 0) {
+                    const bounds = new window.kakao.maps.LatLngBounds();
+                    markers.forEach(marker => bounds.extend(marker.getPosition()));
+                    map.current.setBounds(bounds);
+                }
+
             } else {
                 alert('검색 결과가 없습니다.');
             }
@@ -317,7 +329,7 @@ const Kakao = () => {
         }
     };
 
-    // 사이드바 열기/닫기 함수
+    // // 사이드바 열기/닫기 함수
     // const toggleSidebar = () => {
     //     setSidebarVisible(!sidebarVisible);
     // };
@@ -332,7 +344,7 @@ const Kakao = () => {
         <div className="kakao-map-wrapper">
             <div className="map-container" ref={mapContainer}>
                 {/* 지도 */}
-                <div id="map" className="map" ref={mapContainer}>
+                <div id="map" className="map">
                     <article id={"searchbar"}>
                         <div id={"searchContainer"}>
                             <div id={"searchInputContainer"}>

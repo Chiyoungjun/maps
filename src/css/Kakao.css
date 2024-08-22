@@ -1,4 +1,6 @@
-/* Kakao.css */
+/*.map-container {z-index: 6;}*/
+/*#map {z-index: 5;}*/
+
 
 /* 전체 맵 및 사이드바를 포함하는 래퍼 */
 .kakao-map-wrapper {
@@ -6,13 +8,15 @@
   flex-direction: column; /* 자식 요소들을 수직으로 배치 */
   height: 100vh; /* 전체 화면 높이 */
   position: relative; /* 사이드바를 절대 위치로 배치하기 위해 상대 위치 설정 */
+  pointer-events: auto;
 }
 
 /* 맵을 감싸는 컨테이너 */
 .map-container {
   flex: 1; /* 컨테이너가 가능한 공간을 모두 차지하도록 설정 */
   position: relative; /* 사이드바를 절대 위치로 배치하기 위한 상대 위치 설정 */
-  z-index: 1; /* 맵 컨테이너가 사이드바보다 뒤에 있도록 설정 */
+  z-index: 0; /* 맵 컨테이너가 사이드바보다 뒤에 있도록 설정 */
+  /*touch-action: none;*/
 }
 
 /* 지도 자체의 스타일 */
@@ -20,68 +24,7 @@
   width: 100%; /* 컨테이너 너비에 맞게 100% */
   height: 100%; /* 컨테이너 높이에 맞게 100% */
   position: relative;
+  z-index: 3;
 }
 
-/*!* 네비게이션 바 스타일 *!*/
-/*.navbar {*/
-/*  display: flex; !* 플렉스 박스를 사용하여 자식 요소들을 배치 *!*/
-/*  justify-content: space-between; !* 자식 요소들 사이의 공간을 균등하게 분배 *!*/
-/*  align-items: center; !* 세로로 중앙 정렬 *!*/
-/*  background: #fff; !* 배경색을 흰색으로 설정 *!*/
-/*  padding: 10px; !* 패딩 추가 *!*/
-/*  box-shadow: 0 2px 5px rgba(0,0,0,0.1); !* 하단에 그림자 추가 *!*/
-/*  z-index: 3; !* 네비게이션 바가 사이드바보다 위에 표시되도록 설정 *!*/
-/*}*/
 
-/* 네비게이션 바 내용 스타일 */
-/*.navbar-content {*/
-/*  display: flex; !* 플렉스 박스를 사용하여 자식 요소들을 배치 *!*/
-/*  align-items: center; !* 세로로 중앙 정렬 *!*/
-/*  width: 100%; !* 가로 너비를 100%로 설정 *!*/
-/*  justify-content: space-between; !* 자식 요소들 사이의 공간을 균등하게 분배 *!*/
-/*  position: relative;*/
-/*}*/
-
-/*!* 시설 버튼 스타일 (변경 없음) *!*/
-/*.facility-buttons {*/
-/*  position: absolute;*/
-/*  top: 20px;*/
-/*  left: 20px;*/
-/*  display: flex;*/
-/*  gap: 10px;*/
-/*  z-index: 1000;*/
-/*}*/
-
-/*.facility-button {*/
-/*  background: none;*/
-/*  border: none;*/
-/*  cursor: pointer;*/
-/*}*/
-
-/*.facility-icon {*/
-/*  width: 30px;*/
-/*  height: 30px;*/
-/*}*/
-
-/*.facility-button.active {*/
-/*  opacity: 0.7;*/
-/*}*/
-
-/*.sidebar-toggle-button*/
-/*{*/
-/*  position: absolute;*/
-/*  right: 0;*/
-/*  top: 0;*/
-/*  transform: translateX(-300px);*/
-/*  z-index: 5;*/
-/*  transition: transform 0.3s ease; !* 사이드바의 위치 변경 시 애니메이션 효과 추가 *!*/
-/*}*/
-
-/*.sidebar-toggle-button.true {*/
-/*  transform: translateX(-258px);*/
-/*}*/
-
-/*.sidebar-toggle-button.false*/
-/*{*/
-/*  transform: translateX(0px);*/
-/*}*/

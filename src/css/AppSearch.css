@@ -1,6 +1,15 @@
+/*#searchbar {z-index: 3;}*/
+/*#searchContainer {z-index: 1;}*/
+
+/*#searchbar, #location, #appSide {*/
+/*    pointer-events: none;*/
+/*}*/
+/*#search, .search-button, #location > img, .appSCMenu {*/
+/*    pointer-events: auto;*/
+/*}*/
 #searchbar {
     position: absolute;
-    z-index: 4;
+    /*z-index: 3;*/
     top: 3vh;
     left: 2.5vw;
     width: 17vw;
@@ -9,7 +18,7 @@
 
 #searchContainer {
     position: absolute;
-    z-index: 8;
+    /*z-index: 1;*/
     width: 18vw;
     height: 5vh;
 }
@@ -54,7 +63,7 @@
     /*box-shadow: -2px 0 5px rgba(0,0,0,0.3); !* 왼쪽에 그림자 추가 *!*/
     overflow-y: inherit; /* 내용이 넘칠 때 스크롤 가능하도록 설정 */
     overflow-x: hidden; /* 좌우 화면 옮기는 것 안보이도록 함*/
-    z-index: 5; /* 사이드바가 지도 위에 표시되도록 설정 */
+    z-index: 1; /* 사이드바가 지도 위에 표시되도록 설정 */
     margin-top: 6vh;
     border-radius: 1vh;
     border: solid black 0.4px;
@@ -103,7 +112,7 @@
     list-style: none; /* 기본 리스트 스타일 제거 */
     padding: 0;
     margin-top: 1vh;
-    z-index: 7/* 패딩 제거 */
+    z-index: 2;
 }
 .results-list > li {
     width: 100%;
