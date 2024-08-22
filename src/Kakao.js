@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { markerData, markerImageSrc, userMarkerImageSrc } from './data'; // 데이터 파일에서 필요한 데이터들을 import
+import axios from 'axios';
 import './Kakao.css'; // 스타일링을 위한 CSS 파일 import
 
 const KakaoMap = () => {
@@ -10,11 +11,14 @@ const KakaoMap = () => {
   const medicalMarkers = useRef([]); // 의료시설 마커들을 저장할 ref 배열
   const otherMarkers = useRef([]); //기타시설 마커들을 저장할 ref 배열
   const userMarker = useRef(null); // 사용자 위치 마커를 저장할 ref
+  const propertyMarkers = useRef([]); // 부동산 매물 마커들을 저장할 ref 배열 추가된 부분
   const [activeMarker, setActiveMarker] = useState("convenience"); // 현재 활성화된 마커 타입을 저장하는 상태값 (기본값은 "편의시설")
   const [zoomLevel, setZoomLevel] = useState(6); // 현재 지도 확대/축소 레벨 상태값 (기본값은 6)
   const [searchKeyword, setSearchKeyword] = useState(""); // 검색어를 저장하는 상태값
   const [searchResults, setSearchResults] = useState([]); // 검색 결과를 저장하는 상태값
   const [sidebarVisible, setSidebarVisible] = useState(false); // 사이드바의 표시 여부를 저장하는 상태값
+  const [properties, setProperties] = useState([]); // 추가된 부분 
+
 
   // 컴포넌트가 처음 마운트될 때 실행
   useEffect(() => {
@@ -57,6 +61,44 @@ const KakaoMap = () => {
       window.kakao.maps.event.removeListener(map.current, 'zoom_changed');
     };
   }, []); // 빈 dependency 배열을 사용하여 컴포넌트가 마운트될 때만 실행되도록 설정
+
+  //추가된 부분
+  useEffect(() => {
+    const fetchProperties = async () => {
+      const apiKey = 'xU51hAw16Jhd3KAZUAscNjtFT2yWvDNV5bKUZPeT2tvmWGnjtNSIwqQyMgBn8sEYpmkCX+esRgs0IaVAoS+MCw==';
+      const url = 'http://openapi.molit.go.kr:8081/OpenAPI_ToolInstallPackage/service/rest/RTMSOBJSvc/getRTMSDataSvcAptTrade';
+      const params = {
+        serviceKey: apiKey,
+        LAWD_CD: '11110',
+        DEAL_YMD: '202307',
+      };
+  
+      try {
+        const response = await axios.get(url, { params });
+        const xmlData = response.data;
+        const parser = new DOMParser();
+        const xml = parser.parseFromString(xmlData, 'text/xml');
+        const items = xml.getElementsByTagName('item');
+  
+        const propertiesData = Array.from(items).map((item) => ({
+          name: item.getElementsByTagName('아파트')[0].textContent,
+          price: item.getElementsByTagName('거래금액')[0].textContent.trim(),
+          area: item.getElementsByTagName('전용면적')[0].textContent,
+          floor: item.getElementsByTagName('층')[0].textContent,
+          year: item.getElementsByTagName('건축년도')[0].textContent,
+          location: item.getElementsByTagName('법정동')[0].textContent,
+          lat: parseFloat(item.getElementsByTagName('위도')[0].textContent), 
+          lng: parseFloat(item.getElementsByTagName('경도')[0].textContent)
+        }));
+  
+        setProperties(propertiesData);
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    };
+  
+    fetchProperties();
+  }, []);
 
   // Kakao 지도 API에서 제공하는 MarkerImage 객체를 생성하는 함수
   const createMarkerImage = (src, size, options) => {
@@ -149,6 +191,16 @@ const KakaoMap = () => {
     });
   };
 
+  // 부동산 매물 마커들을 생성하는 함수
+  const createPropertyMarkers = (properties) => {
+    properties.forEach((property) => {
+      const position = new window.kakao.maps.LatLng(property.lat, property.lng); // 매물 위치 설정
+      const markerImage = createMarkerImage(markerImageSrc, new window.kakao.maps.Size(24, 35), {}); // 마커 이미지 생성
+      const marker = createMarker(position, markerImage, `${property.name} - ${property.price}만원`); // 마커 생성
+      propertyMarkers.current.push(marker); // 생성된 마커를 부동산 매물 마커 배열에 추가
+    });
+  };
+
   // 주어진 마커 배열의 모든 마커를 지도에 표시하는 함수
   const setMarkers = (markers) => {
     markers.forEach(marker => marker.setMap(map.current));
@@ -184,7 +236,7 @@ const KakaoMap = () => {
       setMarkers(otherMarkers.current);  // 기타시설 마커만 표시
     }
     setActiveMarker(type); // 활성화된 마커 타입 상태값 업데이트
-    setSidebarVisible(true); // 사이드바 표시
+    setSidebarVisible(false); // 사이드바 표시
   };
 
   // 좌표로부터 건물 이름을 얻어오는 함수
