@@ -1,9 +1,10 @@
 :is(#AHMButtonRegion, #TAMethod, #BMethod).selected {background-color: #ffa6a6;}
 #AHMButtonRegion {
+    text-align: center;
     width: 2.3vw;
-    height: 2vh;
+    height: 2.5vh;
     font-size: .8vw;
-    margin: 0 .2vw 0 .2vw;
+    margin: 0 .3vw .4vh .3vw;
     border: none;
     border-radius: 1vw;
     box-shadow: 0px 0px .3vw #444;
@@ -13,9 +14,9 @@
 
 #AHMButtonArea {
     width: 3.5vw;
-    height: 2vh;
+    height: 2.5vh;
     font-size: .8vw;
-    margin: 0 .2vw 0 .2vw;
+    margin: 0 .3vw .4vh .3vw;
     border: none;
     border-radius: 1vw;
     box-shadow: 0px 0px .25vw #444;
@@ -24,9 +25,9 @@
 
 #TAMethod,#BMethod {
     width: 4vw;
-    height: 2vh;
+    height: 2.5vh;
     font-size: .8vw;
-    margin: 0 .2vw 0 .2vw;
+    margin: 0 .3vw .4vh .3vw;
     border: none;
     border-radius: 1vw;
     box-shadow: 0px 0px .3vw #444
